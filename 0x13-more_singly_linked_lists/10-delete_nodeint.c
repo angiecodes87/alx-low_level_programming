@@ -1,4 +1,4 @@
-#include "lists"
+#include "lists.h"
 
 /**
  * delete_nodeint_at_index - deletes the node at index of a listint_t
