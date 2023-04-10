@@ -1,27 +1,25 @@
-#include <fcntl.h>
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "main.h"
 
 /**
  * read_textfile - reads a text file and prints it to the POSIX standard output
+ * @filename: name of the file to read
+ * @letters: number of letters to read and print
  *
- * @filename: the name of the file to read
- * @letters: the number of letters to read and print
- *
- * Return: the actual number of letters that were read and printed, or 0 if an
- * error occurred
-*/
-
-eeize_t read_textfile(const char *filename, size_t letters)
+ * Return: actual number of letters read and printed, 0 on failure
+ */
+ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int fd, nread, nwritten;
+	int fd, rd, wr;
 	char *buf;
 
 	if (filename == NULL)
 		return (0);
 
-	buf = malloc(letters * sizeof(char));
+	buf = malloc(sizeof(char) * letters);
 	if (buf == NULL)
 		return (0);
 
@@ -32,25 +30,24 @@ eeize_t read_textfile(const char *filename, size_t letters)
 		return (0);
 	}
 
-	nread = read(fd, buf, letters);
-	if (nread == -1)
+	rd = read(fd, buf, letters);
+	if (rd == -1)
 	{
 		free(buf);
 		close(fd);
 		return (0);
 	}
 
-	nwritten = write(STDOUT_FILENO, buf, nread);
-	if (nwritten == -1 || (size_t)nwritten != nread)
+	wr = write(STDOUT_FILENO, buf, rd);
+	if (wr == -1 || wr != rd)
 	{
 		free(buf);
 		close(fd);
 		return (0);
 	}
 
-		free(buf);
-		close(fd);
-
-	return (nwritten);
+	free(buf);
+	close(fd);
+	return (wr);
 }
 
