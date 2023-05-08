@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include "main.h"
+#include <string.h>
 
 /**
  * create_file - creates a file with the given content
