@@ -1,0 +1,33 @@
+# Define variables for the compiler and compilation flags
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra -pedantic
+
+# Define the source files and the output executable name
+SRC = main.c school.c
+OBJ = main.o school.o
+NAME = school
+
+# Define a rule to compile each source file into object files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Define a rule to build the final executable using the object files
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
+
+# The "all" target depends on the final executable
+all: $(NAME)
+
+# Clean up the object files
+clean:
+	rm -f $(OBJ)
+
+# Clean up the executable and object files
+fclean: clean
+	rm -f $(NAME)
+
+# Rebuild the project
+re: fclean all
+
+.PHONY: all clean fclean re
+
