@@ -1,16 +1,5 @@
-# Name of the executable
-EXECUTABLE = school
+school: main.c
+	gcc -Wall -Werror -Wextra -pedantic main.c -o school
 
-# Compiler
-CC = gcc
-
-# Source files
-SRCS = main.c school.c
-
-# Default rule to build the executable
-all: $(EXECUTABLE)
-
-# Rule to build the executable
-$(EXECUTABLE): $(SRCS)
-    $(CC) $(SRCS) -o $(EXECUTABLE)
+all: school
 
