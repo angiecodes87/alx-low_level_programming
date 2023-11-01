@@ -1,0 +1,35 @@
+# Define variables
+CC = gcc
+SRC = main.c school.c
+OBJ = $(SRC:.c=.o)
+NAME = school
+RM = rm -f
+CFLAGS = -Wall -Werror -Wextra -pedantic
+
+# Default target
+all: $(NAME)
+
+# Rule to build the executable
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+
+# Rule to compile source files to object files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean rule to delete Emacs and Vim temporary files and the executable
+clean:
+	$(RM) *~ $(NAME)
+
+# Oclean rule to delete object files
+oclean:
+	$(RM) $(OBJ)
+
+# Fclean rule to delete Emacs and Vim temporary files, the executable, and object files
+fclean: clean oclean
+
+# Rebuild rule to force recompilation of all source files
+re: oclean all
+
+.PHONY: all clean oclean fclean re
+
