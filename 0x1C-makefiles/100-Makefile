@@ -8,26 +8,26 @@ NAME := school
 # Source files
 SRC := main.c file1.c file2.c
 
-# Object files
+# Object files (automatically generated from SRC)
 OBJ := $(SRC:.c=.o)
 
-# Cleaning program
+# Cleaning program (without using RM variable)
 RM := rm -f
 
 # Rules
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $(OBJ)
+	@$(CC) -o $@ $(OBJ)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) *~ $(NAME)
+	@$(RM) *~ $(NAME)
 
 oclean:
-	$(RM) $(OBJ)
+	@$(RM) $(OBJ)
 
 fclean: clean oclean
 
